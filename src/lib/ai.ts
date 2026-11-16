@@ -2,14 +2,14 @@ export type Msg = { role: "user" | "assistant"; content: string; mode?: string }
 export type Mode = "fast" | "think" | "auto" | "genius";
 
 export async function streamChat(
-  opts: { messages: Msg[]; mode: Mode; focus: string; code?: string; filename?: string; signal?: AbortSignal },
+  opts: { messages: Msg[]; mode: Mode; focus: string; code?: string | undefined; filename?: string | undefined; signal?: AbortSignal | undefined },
   onDelta: (t: string) => void,
   onReason?: (t: string) => void,
 ) {
   const res = await fetch("/api/chat", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    signal: opts.signal,
+    signal: opts.signal ?? null,
     body: JSON.stringify({ ...opts, messages: opts.messages.map(({ role, content }) => ({ role, content })), signal: undefined }),
   });
   if (!res.ok || !res.body) {
@@ -43,6 +43,6 @@ export async function streamChat(
 export function lastCodeBlock(text: string): { lang: string; code: string } | null {
   const re = /```(\w[\w+#-]*)?\n([\s\S]*?)```/g;
   let m: RegExpExecArray | null, last: { lang: string; code: string } | null = null;
-  while ((m = re.exec(text))) last = { lang: m[1] || "", code: m[2] };
+  while ((m = re.exec(text))) last = { lang: m[1] || "", code: m[2] ?? "" };
   return last;
 }
