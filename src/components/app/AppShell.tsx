@@ -6,7 +6,7 @@ import { useStore } from "@/lib/store";
 
 const NAV = [
   { to: "/", label: "Home", icon: Home },
-  { to: "/studio", label: "AI Studio", icon: Bot },
+  { to: "/studio", label: "Code Studio", icon: Bot },
   { to: "/modding", label: "Modding Lab", icon: Gamepad2 },
   { group: "Tools" },
   { to: "/decompile", label: "Decompile APK", icon: PackageOpen },
@@ -34,7 +34,7 @@ export function AppShell() {
       <button onClick={() => setOpen(!open)} className="glass fixed left-3 top-3 z-40 rounded-lg p-2 lg:hidden" aria-label="Menu">
         <Menu className="h-5 w-5" />
       </button>
-      <aside className={`fixed inset-y-0 left-0 z-30 flex w-64 flex-col border-r border-sidebar-border bg-sidebar backdrop-blur-xl transition-transform lg:translate-x-0 ${open ? "translate-x-0" : "-translate-x-full"}`}>
+      <aside className={`fixed inset-y-0 left-0 z-30 flex w-64 flex-col border-r border-sidebar-border bg-sidebar backdrop-blur-xl transition-transform lg:translate-x-0 ${open ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}`}>
         <Link to="/" className="flex items-center gap-2 px-5 pb-4 pt-6">
           <div className="grid h-9 w-9 place-items-center rounded-xl bg-brand shadow-glow">
             <Wrench className="h-5 w-5 text-primary-foreground" />
@@ -47,7 +47,7 @@ export function AppShell() {
               <div key={i} className="px-3 pb-1 pt-5 text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">{n.group}</div>
             ) : (
               <Link key={n.to} to={n.to}
-                className={`mb-0.5 flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors ${path === n.to ? "bg-sidebar-accent text-sidebar-accent-foreground shadow-glow" : "text-sidebar-foreground/75 hover:bg-sidebar-accent/60 hover:text-sidebar-foreground"}`}>
+                className={`mb-0.5 flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors ${path === n.to ? "bg-sidebar-accent text-sidebar-accent-foreground shadow-glow" : "text-sidebar-foreground hover:bg-sidebar-accent/60"}`}>
                 <n.icon className={`h-4 w-4 ${path === n.to ? "text-primary" : ""}`} />
                 {n.label}
               </Link>
