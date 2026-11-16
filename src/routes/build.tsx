@@ -24,11 +24,11 @@ function Build() {
     if (!fs.length) return;
     store.clearLogs();
     const z = new JSZip();
-    const single = fs.length === 1 && /\.(apk|zip)$/i.test(fs[0].name);
+    const single = fs.length === 1 && /\.(apk|zip)$/i.test(fs[0]!.name);
     if (single) {
-      log.step(`Loading ${fs[0].name}`);
-      const loaded = await JSZip.loadAsync(fs[0]);
-      store.set({ apk: loaded, apkName: fs[0].name });
+      log.step(`Loading ${fs[0]!.name}`);
+      const loaded = await JSZip.loadAsync(fs[0]!);
+      store.set({ apk: loaded, apkName: fs[0]!.name });
       log.ok(`${Object.keys(loaded.files).length} entries loaded`);
       return;
     }
@@ -39,7 +39,7 @@ function Build() {
     }
     if (!z.file("AndroidManifest.xml")) log.warn("No AndroidManifest.xml at the folder root — the APK will not install");
     if (!Object.keys(z.files).some((n) => /^classes\d*\.dex$/.test(n))) log.warn("No classes.dex found");
-    store.set({ apk: z, apkName: fs[0].webkitRelativePath?.split("/")[0] || "folder" });
+    store.set({ apk: z, apkName: fs[0]!.webkitRelativePath?.split("/")[0] || "folder" });
     log.ok("Folder loaded into workspace");
   }
 

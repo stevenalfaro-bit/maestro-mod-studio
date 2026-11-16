@@ -16,20 +16,20 @@ const MODES: { id: Mode; label: string; icon: typeof Zap; hint: string }[] = [
 ];
 void _s;
 
-function Rendered({ text, onApply }: { text: string; onApply?: (code: string) => void }) {
+function Rendered({ text, onApply }: { text: string; onApply?: ((code: string) => void) | undefined }) {
   const parts = text.split(/(```[\w+#-]*\n[\s\S]*?(?:```|$))/g);
   return (
     <div className="space-y-2 text-sm leading-relaxed">
       {parts.map((p, i) => {
         const m = p.match(/^```([\w+#-]*)\n([\s\S]*?)(?:```)?$/);
-        if (m) return <CodeBlock key={i} lang={m[1]} code={m[2]} onApply={onApply} />;
+        if (m) return <CodeBlock key={i} lang={m[1] ?? ""} code={m[2] ?? ""} onApply={onApply} />;
         return p.trim() ? <p key={i} className="whitespace-pre-wrap">{p.trim()}</p> : null;
       })}
     </div>
   );
 }
 
-function CodeBlock({ lang, code, onApply }: { lang: string; code: string; onApply?: (c: string) => void }) {
+function CodeBlock({ lang, code, onApply }: { lang: string; code: string; onApply?: ((c: string) => void) | undefined }) {
   const [copied, setCopied] = useState(false);
   return (
     <div className="overflow-hidden rounded-lg border border-border bg-background/80">
@@ -48,7 +48,7 @@ function CodeBlock({ lang, code, onApply }: { lang: string; code: string; onAppl
 }
 
 export function AIChat({ initialPrompt, code, filename, onCode, autoApply = true, className = "" }: {
-  initialPrompt?: string; code?: string; filename?: string; onCode?: (c: string, lang: string) => void; autoApply?: boolean; className?: string;
+  initialPrompt?: string | undefined; code?: string | undefined; filename?: string | undefined; onCode?: ((c: string, lang: string) => void) | undefined; autoApply?: boolean; className?: string;
 }) {
   const [focus, setFocus] = useState<string | null>(null);
   const [mode, setMode] = useState<Mode>("auto");

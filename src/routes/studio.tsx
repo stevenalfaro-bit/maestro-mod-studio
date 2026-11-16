@@ -7,7 +7,7 @@ import { downloadBlob, addProject } from "@/lib/store";
 import { meta } from "@/lib/meta";
 
 export const Route = createFileRoute("/studio")({
-  validateSearch: (s: Record<string, unknown>) => ({ prompt: typeof s.prompt === "string" ? s.prompt : undefined }),
+  validateSearch: (s: Record<string, unknown>) => ({ prompt: typeof s["prompt"] === "string" ? s["prompt"] : undefined }),
   head: () => meta("AI Studio", "Chat with Mestro AI to code mod menus, VR menus, .so libs, Frida scripts and websites with live edits."),
   component: Studio,
 });
