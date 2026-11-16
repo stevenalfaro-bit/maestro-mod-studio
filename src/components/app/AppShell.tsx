@@ -1,6 +1,6 @@
 import { Link, Outlet, useRouterState } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { ArrowLeftRight, BookOpen, Boxes, Bot, FolderOpen, FolderSearch, Gamepad2, Hammer, Home, PackageOpen, Store, Wrench, Menu } from "lucide-react";
+import { ArrowLeftRight, BookOpen, Boxes, Bot, Cpu, FolderOpen, FolderSearch, Gamepad2, Hammer, Home, PackageOpen, Store, Wrench, Menu } from "lucide-react";
 import { Starfield } from "./Starfield";
 import { useStore } from "@/lib/store";
 
@@ -15,6 +15,7 @@ const NAV = [
   { group: "APK tools" },
   { to: "/decompile", label: "Decompile APK", icon: PackageOpen },
   { to: "/build", label: "Build & Sign APK", icon: Hammer },
+  { to: "/cpp-to-so", label: "C++ to .so", icon: Cpu },
   { group: "Workspace" },
   { to: "/projects", label: "Saved Projects", icon: FolderOpen },
 ] as const;
